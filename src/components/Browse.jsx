@@ -11,57 +11,33 @@ import { useSelector } from 'react-redux';
 import Footer from './Footer';
 
 const Browse = () => {
-  //? Fetching Now Playing movies and storing in Redux
+  // Fetching movies and storing them in Redux
   useNowPlayingMovies();
-
-  //? Fetching Popular movies and storing in Redux
   usePopularMovies();
-
-  //? Fetching Upcoming movies and storing in Redux
   useUpComingMovies();
-
-  //? Fetching Top Rated movies and storing in Redux
   useTopRatedMovies();
 
-  //? Getting GPT search visibility state from Redux store
   const showGptSearch = useSelector((store) => store.gpt?.showGptSearch);
 
-
-
   return (
-    <div>
+    <div >
       {/* Header Component - Displays logo, user profile, and navigation */}
       <Header />
 
-      {/* Conditional Rendering: If GPT search is enabled((true), show GPT search UI; otherwise, show movie sections */}
-      {
-        showGptSearch ? ( 
-          <GptSearch /> 
-        ) : (
-          <>  {/* <-- React Fragment to group multiple elements */}
-            <MainContainer />  {/* Main Movie Display Section */}
-            <SecondaryContainer />  {/* Additional Movie Sections */}
-            <Footer/>
-          </>    
-        )
-      }
-
-
-      {/* 
-        📌 Component Breakdown:
-
-        1️⃣ MainContainer
-          - Displays movie background with trailers
-          - Shows featured movie list
-
-        2️⃣ SecondaryContainer
-          - Contains multiple movie lists (Popular, Top-Rated, Upcoming, etc.)
-          - Renders multiple MovieCards inside each list
-      */}
-      
-      
+      {/* Conditional Rendering: Show GPT search UI or Movie Sections */}
+      {showGptSearch ? ( 
+        <GptSearch /> 
+      ) : (
+        <>
+          <div > {/* Ensure enough space for Header */}
+            <MainContainer />
+            <SecondaryContainer />
+          </div>
+          <Footer />
+        </>
+      )}
     </div>
   )
 }
 
-export default Browse
+export default Browse;

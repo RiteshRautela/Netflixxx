@@ -9,6 +9,12 @@ import { addUser, removeUser } from '../utils/userSlice';
 import { LOGO, SUPPORTED_LANGUAGES } from '../utils/constant';
 import { toggleGptSearchView } from "../utils/gptSlice"
 import { changeLanguage } from '../utils/configSlice';
+import {  Search } from 'lucide-react';
+import { House } from 'lucide-react';
+import { LogOut } from 'lucide-react';
+import { Tv } from 'lucide-react';
+import { Clapperboard } from 'lucide-react';
+
 
 const Header = () => {
   const navigate = useNavigate();
@@ -56,7 +62,7 @@ const Header = () => {
     });
     return () => unsubscribe();
   }, [dispatch, navigate]); // ✅ Add dependencies to avoid stale closures
-  
+
 
 
 
@@ -74,15 +80,18 @@ const Header = () => {
   const handleTvShowsClick = () => {
     console.log("Navigating to /tv-shows");
     navigate("/tv-shows");
-  
+
   };
 
-    const handleHome = () =>{
-      navigate("/browse")
-    }
+  const handleHome = () => {
+    {/*showGptSearch will become fasle and main, seconday,footer will be rendered which is the browser */}
+    dispatch(toggleGptSearchView()); // ✅ Ensure AI search is closed false mean it show browser
+    navigate("/browse");
+  };
+  
 
   return (
-    <div className="text-white absolute w-screen px-8 py-2 bg-gradient-to-b from-black to-transparent z-10 flex justify-between flex-col md:flex-row">
+    <div className="text-white absolute w-screen px-8 py-2 bg-gradient-to-b from-black to-transparent z-[100] flex justify-between flex-col md:flex-row mt-0">
 
 
       <div className="flex items-center">
@@ -90,10 +99,10 @@ const Header = () => {
         {/* Navigation Links (Centered in Desktop) */}
         <div className="hidden md:flex flex-1 justify-center md:ml-8">
           <div className="text-white  cursor-pointer flex space-x-6">
-            <h3 className='hover:text-gray-200' onClick={handleHome}>Home</h3>
-            <h3 className='hover:text-gray-200' onClick={handleTvShowsClick}>TV Shows</h3>
-            <h3 className='hover:text-gray-200'>Movies</h3>
-            <h3 className='hover:text-gray-200'>New & Popular</h3>
+            <h3 className='hover:text-gray-200 flex justify-center gap-2'  onClick={handleHome}>< House/> <span>Home</span></h3>
+            <h3 className='hover:text-gray-200 flex justify-center gap-2' onClick={handleTvShowsClick}><Tv/> <span>Tv- Shows</span></h3>
+            <h3 className='hover:text-gray-200 flex justify-center gap-2'><Clapperboard/><span>Movies</span></h3>
+            <h3 className='hover:text-gray-200 flex justify-center gap-2'><span>New & Popular</span></h3>
           </div>
         </div>
       </div>
@@ -116,14 +125,24 @@ const Header = () => {
 
 
         </select>}
-        <button className='hover:bg-purple-700 py-2 px-4 m-2 text-white cursor-pointer bg-purple-800'
-          onClick={handleGptSearchClick}
-        >{showGptSearch ? "Home Page" : "GPT Search"}</button>
-        <img
-          className='px-7 w-44 font-bold'
-          src={user?.photoURL}
-          alt="logo" />
-        <button className='font-black  text-white cursor-pointer' onClick={handleSingOut} >sign-out</button>
+
+        <div className='flex gap-x-8 justify-center'>
+          <button 
+            className='hover:bg-purple-700 py-2 px-4 m-2 text-white cursor-pointer flex  gap-2 justify-center'
+            onClick={handleGptSearchClick}
+          >  
+          <Search />
+           <span>Ai-Search</span>
+          </button>
+
+          <button 
+              className='hover:bg-red-700 py-2 px-4 m-2 text-white cursor-pointer flex gap-2 justify-center'
+              onClick={handleSingOut}
+            >
+              <LogOut />
+              <span>Sign-out</span>
+            </button>
+        </div>
       </div>)}
 
     </div>

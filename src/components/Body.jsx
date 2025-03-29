@@ -17,6 +17,7 @@ const appRouter = createBrowserRouter([
   { path: "*", element: <NotFoundPage/> }, // ✅ Handles 404 errors
   {path:"/watch/:movieId" , element: <WatchPage/>},
   
+  
 ]);
 
 const Body = () => {
