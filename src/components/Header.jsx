@@ -77,15 +77,34 @@ const Header = () => {
     console.log(e.target.value)
   };
 
-  const handleTvShowsClick = () => {
-    console.log("Navigating to /tv-shows");
-    navigate("/tv-shows");
+  // const handleTvShowsClick = () => {
+  //   console.log("Navigating to /tv-shows");
+  //   navigate("/tv-shows");
 
+  // };
+  const handleTvShowsClick = () => {
+    // console.log("Navigating to /tv-shows");
+  
+    // ✅ Ensure AI search is closed before navigating
+    if (showGptSearch) {
+      dispatch(toggleGptSearchView());
+    }
+  
+    navigate("/tv-shows");
   };
 
+  // const handleHome = () => {
+  //   {/*showGptSearch will become fasle and main, seconday,footer will be rendered which is the browser */}
+  //   dispatch(toggleGptSearchView()); // ✅ Ensure AI search is closed false mean it show browser
+  //   navigate("/browse");
+  // };
+
+
   const handleHome = () => {
-    {/*showGptSearch will become fasle and main, seconday,footer will be rendered which is the browser */}
-    dispatch(toggleGptSearchView()); // ✅ Ensure AI search is closed false mean it show browser
+    // ✅ Ensure AI search is closed by setting it to false directly
+    if (showGptSearch) {
+      dispatch(toggleGptSearchView()); 
+    }
     navigate("/browse");
   };
   

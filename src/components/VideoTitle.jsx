@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
+import { Play } from 'lucide-react';
+import { Info } from 'lucide-react';
 
 const VideoTitle = ({ title, overview, movieId }) => {
   const navigate = useNavigate();
@@ -15,16 +17,19 @@ const VideoTitle = ({ title, overview, movieId }) => {
 
       <div className="my-6 md:m-0">
         {/* Play Button - Navigates to Full Video */}
-        <button 
+        <button
           className="bg-white text-black py-1 md:py-4 px-3 md:px-12 text-xl rounded-lg cursor-pointer hover:bg-opacity-80"
           onClick={handleClick}
         >
-          ▶ Play
+          <Play/>
         </button>
 
         {/* More Info Button - Kept as it is ✅ */}
-        <button className="hidden md:inline-block md:mx-2 bg-gray-500 text-white p-4 px-12 text-xl bg-opacity-50 rounded-lg cursor-pointer hover:bg-opacity-80">
-          More Info
+        <button
+          className="hidden md:inline-block md:mx-2 bg-gray-500 text-white p-4 px-12 text-xl bg-opacity-50 rounded-lg cursor-pointer hover:bg-opacity-80"
+          onClick={() => navigate(`/information/${movieId}`)} // ✅ Corrected to use movieId
+        >
+          <Info/>
         </button>
       </div>
     </div>
